@@ -1,0 +1,43 @@
+{
+  "name": "illegal-hunting-electron",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "main": "main.js",
+  "description": "Detect humans/animals via YOLO and send Gmail alerts.",
+  "author": "You",
+  "scripts": {
+    "dev": "concurrently -k \"cd ../detector && ..\\\\detector\\\\venv2\\\\Scripts\\\\python.exe detector.py\" \"wait-on ws:127.0.0.1:8765 && electron .\"",
+    "start": "electron .",
+    "pack:win": "electron-builder --dir -w",
+    "build:win": "electron-builder -w"
+  },
+  "build": {
+    "productName": "Wildlife Intrusion Detector",
+    "artifactName": "WildlifeDetector-Setup-${version}.exe",
+    "asar": true,
+    "files": [
+      "main.js",
+      "index.html",
+      "renderer.js",
+      "styles.css",
+      "package.json"
+    ],
+    "extraResources": [
+      {
+        "from": "../detector/dist/detector",
+        "to": "backend/detector"
+      }
+    ],
+    "publish": "never",
+    "win": {
+      "target": "nsis"
+    }
+  },
+  "devDependencies": {
+    "concurrently": "^9.0.1",
+    "electron": "^31.2.0",
+    "electron-builder": "^24.13.3",
+    "wait-on": "^8.0.0"
+  }
+}

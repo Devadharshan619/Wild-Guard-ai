@@ -1,0 +1,62 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <!-- Allow local WS + images -->
+  <meta http-equiv="Content-Security-Policy"
+        content="default-src 'self';
+                 img-src 'self' data:;
+                 style-src 'self' 'unsafe-inline';
+                 script-src 'self';
+                 connect-src ws://127.0.0.1:* ws://localhost:*;">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Wildlife Intrusion Detector</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header>
+    <h1>Wildlife Intrusion Detector</h1>
+    <p>Detect Humans, Animals, Vehicles from Live Feed or Local Video</p>
+  </header>
+
+  <main id="home">
+    <div class="card">
+      <h2>Introduction</h2>
+      <p>This demo uses a lightweight YOLO model to detect people and animals in real time and can trigger alerts via Gmail.</p>
+      <div class="actions">
+        <button id="startLive">Start Live Detection</button>
+        <label class="upload">
+          <input type="file" id="fileInput" accept="video/*" />
+          <span>Upload & Detect (Video)</span>
+        </label>
+      </div>
+    </div>
+  </main>
+
+  <section id="detect" class="hidden">
+    <div class="toolbar">
+      <button id="back">⟵ Back</button>
+      <span id="status">Status: Idle</span>
+      <span class="legend">
+        <span class="chip human">Human</span>
+        <span class="chip animal">Animal</span>
+        <span class="chip vehicle">Vehicle</span>
+        <span class="chip other">Others</span>
+      </span>
+      <button id="stop">Stop Detection</button>
+    </div>
+    <div class="video-wrap">
+      <img id="frame" alt="Detection frame" />
+    </div>
+    <div class="flags">
+      <span id="flagHuman" class="flag">Human: no</span>
+      <span id="flagAnimals" class="flag">Animals: -</span>
+      <span id="flagVehicle" class="flag">Vehicle: no</span>
+      <span id="flagOthers" class="flag">Others: 0</span>
+      <span id="flagAlert" class="flag">Email sent: no</span>
+    </div>
+  </section>
+
+  <script src="renderer.js"></script>
+</body>
+</html>
